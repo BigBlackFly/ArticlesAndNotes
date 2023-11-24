@@ -1,0 +1,4 @@
+repo管理多个git仓库。
+.repo/manifest可以用git命令查到所有提交记录。
+被管理的多个git仓库不一定在repo根目录下。有可能隔着几层目录。需要切换到仓库目录（有.git文件夹的），才能执行git命令。
+需要结合git命令和repo命令进行版本控制。https://zhuanlan.zhihu.com/p/50564255

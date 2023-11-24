@@ -1,0 +1,58 @@
+AOSP能编译安卓世界的一切东西，如编译诸多工具、各种sdk、img刷机文件等。
+
+
+
+android的m、mm、mmm编译命令的使用
+android源码目录下的build/envsetup.sh文件，描述编译的命令
+
+- m:       Makes from the top of the tree. 
+- mm:      Builds all of the modules in the current directory. 
+- mmm:     Builds all of the modules in the supplied directories. 
+
+要想使用这些命令，首先需要在android源码根目录执行. build/envsetup.sh 脚本设置环境
+
+m：编译所有的模块 
+mm：编译当前目录下的模块，当前目录下要有Android.mk文件 
+mmm：编译指定路径下的模块，指定路径下要有Android.mk文件 
+
+下面举个例子说明，假设我要编译android下的\hardware\libhardware_legacy\power模块，当前目录为源码根目录，方法如下： 
+
+1、. build/envsetup.sh 
+2、mmm hardware/libhardware_legacy/power/ 
+
+或者 ： 
+
+1、. build/envsetup.sh 
+2、cd hardware/libhardware_legacy/power/ 
+
+3、mm 
+————————————————
+版权声明：本文为CSDN博主「zhenwenxian」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/zhenwenxian/article/details/7102049
+
+
+
+
+
+
+Android源码目录下的build/envsetup.sh文件，描述编译的命令
+
+m: Makes from the top of the tree.
+mm: Builds all of the modules in the current directory.
+mmm: Builds all of the modules in the supplied directories.
+要想使用这些命令，首先需要在android源码根目录执行. build/envsetup.sh 脚本设置环境
+
+m：编译所有的模块
+mm：编译当前目录下的模块，当前目录下要有Android.mk文件
+mmm：编译指定路径下的模块，指定路径下要有Android.mk文件
+mmm 命令只能编译有 Android.mk 文件的目录，比如修改了 android/frameworks/base/core/res/res/layout/ 目录下的布局文件，
+而该路径中，base/ 目录和第一个 res/ 目录都包含 Android.mk 文件，这个时候，你只需要编译 res/ 目录，命令如下：
+mmm frameworks/base/core/res/
+
+note：
+假如编译没问题在测试的时候遇到了崩溃，可能是从新编译的包，其他地方的一些资源引用不成功导致。还是上面的例子，如果你修改了
+android/frameworks/base/core/res/res/layout/ 目录下的布局文件，编译完 res/ 目录后，还需要编译 base/ 目录，
+然后两次编译生成的 jar 包和 apk 文件，都要推送，才能确保万无一失。
+
+指令不可用错误：需要先source build/envsetup.sh ，然后lunch，才能使用，已经source过就不需要。
+原因：初次进入 Ubuntu 系统，或者切换用户后，需要重新配置编译环境.
